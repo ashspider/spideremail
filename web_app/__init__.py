@@ -81,7 +81,7 @@ def inner():
 @app.route('/email', methods=['POST'])
 def handle_email():
     email = request.form['email']
-    url = "http://spiderapi.herokuapp.com/api/emails/"
+    url = "https://api.zerobounce.net/v1/validate"
     print("requesting: ", url)
     headers = {'Content-type': 'application/json'}
     r = requests.post(url, json={"email": email, "key": "C88B933A691E16C56EBC92BCC9A7E"}, headers=headers)
