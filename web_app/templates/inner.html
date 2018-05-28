@@ -9,143 +9,218 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
-
+    <script>
+        function validateForm()
+        {
+            var x = document.forms["myform"]["iname"].value;
+            if (x == " ")
+            {
+                alert("Name must be filled out");
+                return true;
+            }
+        }
+    </script>
+    {{ records }}
+    
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
     <!--<![endif]-->
-
+    
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-
-
+    
+    
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="{{url_for('static', filename='style-old.css')}}">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="{{url_for('static', filename='style2.css')}}">
+        <!--  <link rel="stylesheet" href="{{url_for('static', filename='style2.css')}}">
         <!--<![endif]-->
+        <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
 
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
 
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+button:hover {
+    opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+       width: 100%;
+    }
+}
+</style>
+   
+    
 </head>
 <body>
 
-<div class="header" id="nav">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed custom-restricted">
-        <a class="pure-menu-heading" href="">Email Spider</a>
 
-        <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover"><a href="#" class="pure-menu-link">
-                Verify Email</a>
-                <ul class="pure-menu-children custom-list"
-                style="width:100%;border:none;">
-                    <li class="pure-menu-item"><a href="#" id="verify_btn" class="pure-menu-link">Single</a></li>
-                    <li class="pure-menu-item"><a href="#" id="add_csv" class="pure-menu-link">Multiple</a></li>
-                </ul>
-            </li>
+<div id="login" >
 
-            <!--<li class="pure-menu-item"><a href="#"  class="pure-menu-link">upload csv</a></li>-->
-            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover"><a href="#" class="pure-menu-link">
-                Discover Email</a>
-                <ul class="pure-menu-children custom-list"
-                style="width:100%;border:1px solid #ddd;">
-                    <li class="pure-menu-item"><a href="#" id="guess_btn" class="pure-menu-link">Single</a></li>
-                    <li class="pure-menu-item"><a href="#" id="guess_file_btn" class="pure-menu-link">Multiple</a></li>
-                </ul>
-            </li>
+    <div class="content" id="login" >
+        <h2 class="content-head is-center">Please register or sign in to continue</h2>
 
-            <li class="pure-menu-item"><a href="https://company-to-domain.herokuapp.com/" class="pure-menu-link">Company-to-domain</a></li>
-            <!--<li class="pure-menu-item"><a href="#" id="guess_file_btn" class="pure-menu-link">Guess Email(CSV)</a></li>-->
-            <!--<li class="pure-menu-item"><a href="#"  class="pure-menu-link">Jobs</a>-->
-            <!--</li>-->
-            <li class="pure-menu-item"><a href="https://engage48-csv.herokuapp.com/" class="pure-menu-link">Engage-CSV</a></li>
-            <li class="pure-menu-item"><a class="pure-menu-link" href="{{ url_for('logout') }}">Log Out</a></li>
-        </ul>
+
+        <div class="pure-g">
+              <div class="l-box-lrg 
+              
+              pure-u-1 pure-u-md-2-5" id="login-col">
+               
+                <form class="pure-form pure-form-stacked" method="post" action="{{ url_for('inner') }}">
+                        <h2> Signup Form</h2>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign Up</button>
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content" action="/action_page.php">
+    <div class="container">
+      <h1>Sign Up</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+      
+      <label>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+
+      
+
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn">Sign Up</button>
+      </div>
     </div>
+  </form>
 </div>
 
-<div class="splash-container pure-img">
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
 
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
-   <form target="_blank" action="{{ url_for('handle_email') }}" method="post" id="email">
-    <div class="splash">
-        <input type="text" class="input-box" id="email" placeholder="enter email here" name="email">
-        <p class="splash-subhead">
-        Email spider can find thousand of emails in seconds.
-        </p>
+                
+                           
+                    </form>
+           
 
-
-
-
-
-        <p>
-            <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
-        </p>
-    </div>
-    </form>
-
-       <form target="_blank" action="{{ url_for('handle_emailList') }}"  class="" id="csv_file" method=post enctype=multipart/form-data style="display:none;" >
-    <div class="splash">
-        <input type="file" id="csv_file" class="input-box" value="browse..." name="file">
-        <p class="splash-subhead">
-        Upload a csv file to verify emails.
-        </p>
-        <p>
-            <input type="submit" value="Upload" class="pure-button" id="search-btn" value="Get Started">
-        </p>
-    </div>
-    </form>
-
-
-    <form target="_blank" action="{{ url_for('guess_email') }}" method="post" id="guess_email" style="display:none;">
-    <div class="splash">
-        <input type="text" class="input-box" id="fname" placeholder="first name" name="fname">
-
-        <input type="text" class="input-box" id="lname" placeholder="last name" name="lname">
-        <input type="text" class="input-box" id="dname" placeholder="domain.com" name="dname">
-
-        <p class="splash-subhead">
-        Enter name and domain to guess email id of someone.
-        </p>
-        <p>
-            <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
-        </p>
-    </div>
-    </form>
-
-
-    <form target="_blank" action="{{ url_for('handle_guessList') }}"  class="" id="guess_file" method=post enctype=multipart/form-data style="display:none;" >
-    <div class="splash">
-        <input type="file" id="csv_file" class="input-box" value="browse..." name="file">
-        <p class="splash-subhead">
-        <span style="">Upload a csv file to Discover emails.<br/> File must contain firstname,lastname,domain columns.</span>
-        </p>
-
-
-        <p>
-            <input type="submit" value="Upload" class="pure-button" id="search-btn" value="Get Started">
-        </p>
-    </div>
-    </form>
-
-
-    <form target="_blank" action="{{ url_for('one_domain') }}" method="post" id="one_domain1" style="display:none;">
-    <div class="splash">
-        <input type="text" class="input-box" id="cname" placeholder="Company name" name="cname">
-        <p class="splash-subhead">
-        Enter name and domain to guess email id of someone.
-        </p>
-        <p>
-            <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
-        </p>
-    </div>
-    </form>
-</div>
 
 
 <script type="text/javascript" src="{{url_for('static', filename='script6.js')}}"></script>
-
 </body>
 </html>
